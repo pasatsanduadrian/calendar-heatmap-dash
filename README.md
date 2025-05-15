@@ -13,37 +13,39 @@ Aplicație Dash/Python pentru generarea și vizualizarea unui heatmap calendaris
 
 ---
 
-## 📦 Instalare rapidă
+## 🚀 Testare rapidă în Google Colab
 
-1. **Clonează proiectul:**
-    ```bash
-    git clone https://github.com/<user>/calendar-heatmap-dash.git
-    cd calendar-heatmap-dash
-    ```
+**Folosește celula de mai jos pentru a testa direct aplicația cu un fișier de exemplu (salvat pe Google Drive):**
 
-2. **Instalează dependențele:**
-    ```bash
-    pip install -r requirements.txt
-    ```
+```python
+# Clone repo & set working dir
+!git clone https://github.com/pasatsanduadrian/calendar-heatmap-dash.git
+%cd calendar-heatmap-dash
 
-3. **Adaugă fișierul tău Excel** (implicit `cal.xlsx`) în folderul proiectului.
-   - Structură minimă: o coloană cu numele `dtstart` (format dată/oră, ex: 2015-09-18 09:00:00).
+# Install dependencies
+!pip install -r requirements.txt
 
-4. **Configurează variabilele sensibile:**
-    - Creează un fișier `.env` pe baza `.env.example`.
-    - Obține un token gratuit ngrok de aici: https://dashboard.ngrok.com/get-started/your-authtoken
-    - (opțional) Rezervă-ți un hostname static din dashboardul ngrok (plan free/domeniu `.ngrok-free.app`).
+# (Opțional) Montează Google Drive și copiază fișierul Excel în folder
+from google.colab import drive
+drive.mount('/content/drive')
+!cp /content/drive/MyDrive/Colab\ Notebooks/cal.xlsx ./
 
-5. **Pornește aplicația:**
-    ```bash
-    python app.py
-    ```
+# Creează .env cu token și hostname
+with open(".env", "w") as f:
+    f.write("NGROK_TOKEN=tokenul_tău_ngrok_aici\n")
+    f.write("NGROK_HOSTNAME=stable-guided-buck.ngrok-free.app\n")
+    f.write("EXCEL_PATH=cal.xlsx\n")
 
-6. **Accesează linkul generat** de ngrok din terminal (de exemplu `https://hostnameul-tau.ngrok-free.app`).
+# Rulează aplicația
+!python app.py
+```
+**Ai nevoie de:**
+- Un token ngrok ([îl poți genera aici](https://dashboard.ngrok.com/get-started/your-authtoken))
+- (opțional) Un hostname static rezervat în dashboardul ngrok (dacă vrei link fix)
 
 ---
 
-## 📝 Format fișier Excel (minim)
+## 📝 Format fișier Excel (minim) și exemplu de test
 
 | dtstart            |
 |--------------------|
@@ -51,26 +53,7 @@ Aplicație Dash/Python pentru generarea și vizualizarea unui heatmap calendaris
 | 2015-09-18 09:00:00|
 | ...                |
 
-- Foaia trebuie să se numească `Sheet1` (sau modifică parametrul în `.env` sau direct în cod).
-
----
-
-## ⚠️ Securitate
-- **Nu publica tokenul tău NGROK în repo public!** (e motivul pentru care există `.env.example` și `.gitignore`)
-- Recomandăm să-ți setezi `.env` doar local.
-
----
-
-## 🔧 Customizare
-- Poți schimba calea fișierului Excel în `.env` sau la începutul `app.py`.
-- Pentru statistici suplimentare sau grafice adiționale (bar chart/lună etc), modifică secțiunea heatmap din cod.
-
----
-
-## 🤝 Contribuții
-PR-urile și sugestiile sunt binevenite! Deschide un issue pentru bug-uri sau idei noi.
-
----
-
-## 📄 Licență
-MIT
+- **Foaia trebuie să se numească `Sheet1`** (sau modifică parametrul în `.env` sau direct în cod).
+- Pentru testare rapidă poți descărca un exemplu:  
+  👉 [**Descarcă fișierul cal.xlsx de aici (Google Sheets)**](https://docs.google.com/spreadsheets/d/1-iFenFTsSyQwU-OybhLKwjmVNbdsbjNM/edit?usp=sharing&ouid=110223860124363980416&rtpof=true&sd=true)  
+    - După accesare: **File → Download → Microsoft Excel (.xlsx)**
