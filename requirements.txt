@@ -1,0 +1,6 @@
+pandas
+openpyxl
+plotly
+dash
+pyngrok
+python-dotenv
